@@ -1,0 +1,20 @@
+<div class="container">
+    <img src="../../assets/img/CONEVALLogo.png" class="rounded mx-auto d-block p-5" alt="...">
+    <form class="container loginform" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form2Example1">Usuario</label>
+
+            <input type="email" id="form2Example1" class="form-control" formControlName="usuario"/>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form2Example2">Contraseña</label>
+            <input type="password" id="form2Example2" class="form-control" formControlName="password"/>
+        </div>
+
+        <!-- Submit button -->
+        <button type="button" class="btn btn-primary btn-block mb-4" type="submit">Iniciar sesión</button>
+    </form>
+</div>
