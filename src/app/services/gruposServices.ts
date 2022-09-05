@@ -15,18 +15,18 @@ export class GruposService {
 
      /****** Funciones de servidor  */
      getGrupos(): Observable<any> {
-        //this.loadHttpHeaders();
-        let url: string = `https://pokeapi.co/api/v2/pokemon?limit=10&offset=0`;
+        this.loadHttpHeaders();
+        let url: string = `http://10.1.15.156:8080/ghd-springboot/api/ghd`;
         return this.http.get<any>(url,{ headers: this.headers});
     }
 
     private loadHttpHeaders(): void {
-        var user:any;
+        var token:string;
         if(localStorage.getItem('token')){
-            user = JSON.parse(localStorage.getItem('token')+"");
+          token = localStorage.getItem('token');
         }        
-            if (user && user.token){
-              this.headers = new HttpHeaders({ 'token': `${user.token}` });
+            if (token){
+              this.headers = new HttpHeaders({ 'Authorization': `${token}` ,'Content-Type' : 'application/x-www-form-urlencoded'});
             }else{
               console.log("Error no se encontro usuario.");
             }

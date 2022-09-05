@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder,Validators } from "@angular/forms";
-import { Router, ActivatedRoute, } from '@angular/router';
-
+import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
+import { LoginService } from '../services/loginServices';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
   public formulario: FormGroup;
 
-  constructor(private fb: FormBuilder,private router: Router) { 
+  constructor(private fb: FormBuilder,private router: Router,private login:LoginService) { 
     this.revisarStorage();
     this.buildForm();
   }
@@ -36,15 +36,16 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if(this.formulario.valid){
-      if(this.formulario.get('usuario').value === 'admin' && this.formulario.get('password').value==='12345'){
-        localStorage.setItem('token','xhja787')
-        this.router.navigate(['/','listado']);
-      }
+        this.login.postLogin(this.formulario.get('usuario').value,this.formulario.get('password').value)
+        .subscribe(
+          res=>{
+            localStorage.setItem('token',res.token)
+          this.router.navigate(['/','listado']);
+          }
+        );
     }else{
       this.lanzarError("No deben quedar campos vacios.");
     }
-    console.log(this.formulario.get('usuario').value);
-    console.log(this.formulario.get('password').value);
   }
 
   lanzarError(mensaje : string){

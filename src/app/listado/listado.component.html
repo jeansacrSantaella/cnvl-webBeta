@@ -17,8 +17,15 @@
     </div>
   </nav>
 
+  <form [formGroup]="formulario" (ngSubmit)="onSubmit()">  
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Buscar nombre de G.H.D." aria-label="Buscar por nombre" aria-describedby="button-addon2" formControlName="textoabuscar">
+      <button class="btn btn-outline-secondary" id="button-addon2" type="submit">Buscar</button>
+    </div>
+  </form>
+
   <div class="container mt-2">
-    <table class="table table-bordered table table-striped mt-4 text-center">
+    <table class="table table-bordered  mt-4 text-center">
         <caption></caption>
         <thead>
           <tr>
@@ -27,21 +34,11 @@
             <th scope="col">Estatus</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor="let item of datos">
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry the Bird</td>
-            <td>Larry the Bird</td>
+            <th scope="row">{{item.idGruposDiscriminados}}</th>
+            <td>{{item.nombre}}</td>
+            <td>{{item.estatus}}</td>
           </tr>
         </tbody>
       </table>
